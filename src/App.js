@@ -4,6 +4,7 @@ import { AppBar, Box, Grid, Toolbar, Typography } from "@material-ui/core";
 import EquationBar from "./components/EquationBar";
 import Sheet from "./components/Sheet";
 import "./App.css";
+import generateSheet from "./internal/abc";
 
 function App() {
     const handleSubmit = ({ equations }) => {
