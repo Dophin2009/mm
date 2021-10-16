@@ -1,8 +1,15 @@
-
+import abcjs from 'abcjs';
 // notes: midi, start (index of 16th notes), duration (how many 16th notes it lasts)
 
-const getLetter = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
-function midiToLetter(midi) {
+const getLetter = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+const durationToLength = new Map([
+    [1, "/4"],
+    [2, "/2"],
+    [4, ""],
+    [8, "2"],
+    [16, "4"],
+]);
+function midiToLetter(midi, duration) {
     let add = "";
     while (midi < 60) {
         midi += 12;
@@ -12,18 +19,43 @@ function midiToLetter(midi) {
         midi -= 12;
         add += "'";
     }
-    return getLetter[midi-60] += add;
+
+    //console.log(duration + " " + durationToLength.get(duration));
+    return getLetter[midi-60] + add + durationToLength.get(duration);
 }
 
 export function generateSheet(notes) {
-    const metadata =
-    "X: 1\n" +
+    let data =
+    "T: Random Notes\n" +
     "M:4/4\n" +
     "L:1/4\n" +
     "Q:1/4=90\n" +
     "K:G\n";
 
-    
+    let midiMap = new Map();
+    for (const note of notes) {
+        if (midiMap.get(note.start)===undefined) midiMap.set(note.start, "");
+        midiMap.set(note.start, midiMap.get(note.start)+midiToLetter(note.midi, note.duration));
+        console.log(note.start + "-->" + midiMap.get(note.start));
+    }
+    let keys = Array.from(midiMap.keys());
+    keys.sort((a, b) => a-b);
+    let li = 0;
+    let cur = "";
+    for (const key of keys) {
+        if (key >= li+16) {
+            data += cur + " | ";
+            cur = "";
+            li += 16;
+            if (li%64 === 0) data += "\n";
+        }
+        cur += "[" + midiMap.get(key) + "] ";
+    }
+    data += cur + "\n";
+    console.log(data);
+
+    //console.log(keys);
+    return data;
 }
 
 export function generateTestSheet() {
@@ -37,17 +69,68 @@ export function generateTestSheet() {
     "d B G| F E c/2>c/2| B G A| G2|D/2>E/2 | G A B | C D E | F G A | B C E|]";
 }
 
+export function generateTestSheet3() {
+    return `X: 1
+    T: Cooley's
+    M: 4/4
+    L: 1/8
+    K: Emin
+    |:D2|"Em"EBBA B2 EB|\
+        ~B2 AB dBAG|\
+        "D"FDAD BDAD|\
+        FDAD dAFD|
+    "Em"EBBA B2 EB|\
+        B2 AB defg|\
+        "D"afe^c dBAF|\
+        "Em"DEFD E2:|
+    |:gf|"Em"eB B2 efge|\
+        eB B2 gedB|\
+        "D"A2 FA DAFA|\
+        A2 FA defg|
+    "Em"eB B2 eBgB|\
+        eB B2 defg|\
+        "D"afe^c dBAF|\
+        "Em"DEFD E2:|`;
+}
+
 export function generateTestSheet2() {
     const notes = [
         { midi: 60, start: 4, duration: 1 },
         { midi: 55, start: 8, duration: 2 },
-        { midi: 60, start: 12, duration: 4 },
         { midi: 64, start: 16, duration: 8 },
+        { midi: 60, start: 12, duration: 4 },
+        
+        { midi: 60, start: 17, duration: 1 },
         { midi: 84, start: 17, duration: 1 },
         { midi: 79, start: 18, duration: 1 },
         { midi: 76, start: 19, duration: 1 },
         { midi: 72, start: 20, duration: 1 },
     ];
 
+    //console.log(durationToLength);
     return generateSheet(notes);
+}
+
+let visualObj = null;
+export function renderSheet() {
+    visualObj = abcjs.renderAbc("paper", generateTestSheet3());
+}
+
+export function testAudio() {
+    var myContext = new AudioContext();
+    var synth = new abcjs.synth.CreateSynth();
+
+    synth.init({
+        audioContext: myContext,
+        visualObj: visualObj[0],
+        millisecondsPerMeasure: 1500,
+    }).then(function (results) {
+        synth.prime
+    }).then(() => {
+        synth.prime(() => {
+            console.log('in the prime');
+        });
+    }).then(() => {
+        synth.start();
+    })
 }
