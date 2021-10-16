@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { AppBar, Box, Grid, Toolbar, Typography } from "@material-ui/core";
 
 import EquationsPanel from "./EquationsPanel";
 import "./App.css";
 
 function App() {
+    const handleSubmit = ({ equations }) => {
+        setEquations(equations);
+    };
+    const [equations, setEquations] = useState([]);
+
     return (
         <Box>
             <Grid container spacing={2}>
@@ -12,7 +17,9 @@ function App() {
                     <Header />
                 </Grid>
                 <Grid item xs={4}>
-                    <EquationsPanel />
+                    <EquationsPanel
+                        handleSubmit={(data) => handleSubmit(data)}
+                    />
                 </Grid>
             </Grid>
         </Box>

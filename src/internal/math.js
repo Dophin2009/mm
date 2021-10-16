@@ -1,19 +1,29 @@
-import * as math from 'mathjs';
+import * as math from "mathjs";
 
-function verifyExpression(expression) {
-    console.log('testing if expression compiles');
+export function verifyFn(fn) {
     try {
-        const val = math.evaluate(expression, {t:0});
-        console.log('expression at 0: ' + (val));
+        math.evaluate(fn, { t: 0 });
         return true;
     } catch (error) {
-        console.log('failed to parse expression');
         return false;
     }
 }
 
-function evalExpression(expression, time) {
-    return math.evaluate(expression, { t:time });
+export function compileFn(fn) {
+    return Fn(fn);
 }
 
-export { verifyExpression, evalExpression };
+class Fn {
+    constructor(fn) {
+        this.compiled = math.compile(fn);
+    }
+
+    eval(t) {
+        return this.compiled.evaluate({ t: t });
+    }
+
+    evalRange(r) {
+        return r.map((t) => this.compiled.evaluate(t));
+    }
+
+}
