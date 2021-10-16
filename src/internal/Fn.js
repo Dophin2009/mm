@@ -1,6 +1,6 @@
 import * as math from "mathjs";
 
-export class Fn {
+class Fn {
     constructor(fn) {
         this.compiled = math.compile(fn);
     }
@@ -22,3 +22,5 @@ export class Fn {
         return r.map((t) => this.compiled.evaluate(t));
     }
 }
+
+export default Fn;

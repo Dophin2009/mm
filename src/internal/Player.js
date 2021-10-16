@@ -13,16 +13,21 @@ class Player {
         );
     }
 
-    async play(notes) {
+    async play(notes, bpm) {
         if (!this.piano) {
             this.init();
         }
 
-        for (const note of notes) {
-            this.piano.play(note.midi, this.ac.currentTime + note.start, {
-                duration: note.duration,
+        const sDuration = 15 / bpm;
+        for (const { midi, start, duration } of notes) {
+            const startTime = this.ac.currentTime + start * sDuration;
+            const durationTime = duration * sDuration;
+
+            this.piano.play(midi, startTime, {
+                duration: durationTime,
             });
         }
     }
 }
 
+export default Player;
