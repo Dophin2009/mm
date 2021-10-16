@@ -13,10 +13,10 @@ import {
 } from "@material-ui/core";
 import { ExpandMore } from "@material-ui/icons";
 
-function EquationsPanel() {
+function EquationsPanel({ handleSubmit }) {
     return (
         <>
-            <EquationsList handleSubmit={(data) => console.log(data)} />
+            <EquationsList handleSubmit={handleSubmit} />
         </>
     );
 }
