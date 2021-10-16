@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import EquationBar from "./components/EquationBar";
-import Sheet from "./components/Sheet";
+import Rhs from "./components/Rhs";
 import "./App.css";
 
 function App() {
@@ -22,7 +22,7 @@ function App() {
                     <EquationBar handleSubmit={(data) => handleSubmit(data)} />
                 </div>
                 <div className="w-2/3 p-2">
-                    <Sheet />
+                    <Rhs />
                 </div>
             </div>
         </div>
