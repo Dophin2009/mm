@@ -1,14 +1,5 @@
 import * as math from "mathjs";
 
-export function verifyFn(fn) {
-    try {
-        math.evaluate(fn, { t: 0 });
-        return true;
-    } catch (error) {
-        return false;
-    }
-}
-
 export function compileFn(fn) {
     return Fn(fn);
 }
@@ -18,6 +9,15 @@ class Fn {
         this.compiled = math.compile(fn);
     }
 
+    verify() {
+        try {
+            this.eval(0);
+            return true;
+        } catch (error) {
+            return false;
+        }
+    }
+
     eval(t) {
         return this.compiled.evaluate({ t: t });
     }
@@ -25,5 +25,4 @@ class Fn {
     evalRange(r) {
         return r.map((t) => this.compiled.evaluate(t));
     }
-
 }
