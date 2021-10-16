@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { AppBar, Box, Grid, Toolbar, Typography } from "@material-ui/core";
 
 import EquationBar from "./components/EquationBar";
 import Sheet from "./components/Sheet";
