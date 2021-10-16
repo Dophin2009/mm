@@ -3,6 +3,7 @@ import Fn from "./Fn";
 
 class MathFunction {
     constructor(fn, start, end, step) {
+        this.str = fn;
         this.fn = new Fn(fn);
         this.start = start;
         this.end = end;
@@ -10,7 +11,7 @@ class MathFunction {
     }
 
     values() {
-        const r = [...range(this.start, this.end, this.step)];
+        const r = range(this.start, this.end, this.step);
         return r.map((t) => [t, this.fn.eval(t)]);
     }
 
@@ -35,10 +36,10 @@ function Note(midi, start, duration) {
     return { midi: midi, start: start, duration: duration };
 }
 
-function* range(start, end, step) {
-    yield start;
-    if (start === end) {
-        return;
-    }
-    yield* range(start + step, end, step);
+function range(start, stop, step = 1) {
+    return Array(stop - start)
+        .fill(start)
+        .map((x, y) => x + y * step);
 }
+
+export default MathFunction;

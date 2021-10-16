@@ -13,14 +13,15 @@ class Player {
         );
     }
 
-    async play(notes, bpm) {
+    async play(notes, bpm, delay) {
         if (!this.piano) {
-            this.init();
+            await this.init();
         }
 
         const sDuration = 15 / bpm;
+        const currentTime = this.ac.currentTime;
         for (const { midi, start, duration } of notes) {
-            const startTime = this.ac.currentTime + start * sDuration;
+            const startTime = currentTime + delay + start * sDuration;
             const durationTime = duration * sDuration;
 
             this.piano.play(midi, startTime, {

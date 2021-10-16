@@ -5,11 +5,11 @@ import Rhs from "./components/Rhs";
 import "./App.css";
 
 function App() {
-    const handleSubmit = ({ equations }) => {
-        setEquations(equations);
-    };
     const [equations, setEquations] = useState([]);
-    console.log(equations);
+    const handleSubmit = ({ equations }) => {
+        console.log("Submitted: ", equations);
+        setEquations(() => equations);
+    };
 
     return (
         <div className="w-full min-h-screen">
@@ -22,7 +22,7 @@ function App() {
                     <EquationBar handleSubmit={(data) => handleSubmit(data)} />
                 </div>
                 <div className="w-2/3 p-2">
-                    <Rhs />
+                    <Rhs key={equations} equations={equations} />
                 </div>
             </div>
         </div>

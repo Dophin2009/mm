@@ -5,6 +5,8 @@ import deleteIcon from "../assets/delete.png";
 function EquationBox({
     label,
     registerEqu,
+    registerStart,
+    registerEnd,
     registerStep,
     registerDuration,
     remove,
@@ -42,6 +44,26 @@ function EquationBox({
                         className="border-gray-200 border-b-2 h-7 bottom-0 w-10 mx-2"
                         min={0}
                         defaultValue={1}
+                        {...registerStart()}
+                    />
+                </div>
+                <div className="text-lg font-bold flex flex-start">
+                    E:
+                    <input
+                        type="number"
+                        className="border-gray-200 border-b-2 h-7 bottom-0 w-10 mx-2"
+                        min={0}
+                        defaultValue={10}
+                        {...registerEnd()}
+                    />
+                </div>
+                <div className="text-lg font-bold flex flex-start">
+                    ST:
+                    <input
+                        type="number"
+                        className="border-gray-200 border-b-2 h-7 bottom-0 w-10 mx-2"
+                        min={0}
+                        defaultValue={1}
                         {...registerStep()}
                     />
                 </div>
@@ -52,11 +74,11 @@ function EquationBox({
                         defaultValue="2"
                         {...registerDuration()}
                     >
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="4">4</option>
-                        <option value="8">8</option>
-                        <option value="16">16</option>
+                        <option value={1}>1</option>
+                        <option value={2}>2</option>
+                        <option value={4}>4</option>
+                        <option value={8}>8</option>
+                        <option value={16}>16</option>
                     </select>
                 </div>
             </div>

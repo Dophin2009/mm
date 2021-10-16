@@ -10,6 +10,7 @@ function EquationBar({ handleSubmit }) {
         control,
         register,
         handleSubmit: wrapSubmit,
+        getValues,
         formState: { errors },
     } = useForm();
     const { fields, append, remove } = useFieldArray({
@@ -30,11 +31,29 @@ function EquationBar({ handleSubmit }) {
                         required: "A valid equation is required!",
                     })
                 }
+                registerStart={() =>
+                    register(`${name}.start`, {
+                        required: "Start is required!",
+                    })
+                }
+                registerEnd={() =>
+                    register(`${name}.end`, {
+                        required: "End is required!",
+                        validate: (value) => {
+                            const { equations } = getValues();
+                            const start = equations[idx].start;
+                            return (
+                                value > start ||
+                                "End must be greater than start!"
+                            );
+                        },
+                    })
+                }
                 registerStep={() =>
                     register(`${name}.step`, {
-                        required: true,
+                        required: "Step is required!",
                         validate: (value) =>
-                            value > 0 ? false : "Step must be greater than 0",
+                            value > 0 || "Step must be greater than 0",
                     })
                 }
                 registerDuration={() =>
