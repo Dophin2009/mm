@@ -1,10 +1,6 @@
 import * as math from "mathjs";
 
-export function compileFn(fn) {
-    return Fn(fn);
-}
-
-class Fn {
+export class Fn {
     constructor(fn) {
         this.compiled = math.compile(fn);
     }

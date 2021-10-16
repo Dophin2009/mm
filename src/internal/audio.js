@@ -1,10 +1,28 @@
-import Soundfont from 'soundfont-player';
+import Soundfont from "soundfont-player";
 
-function playNotes(notes) {
-    const ac = new AudioContext();
-    Soundfont.instrument(ac, 'acoustic_grand_piano').then(function (piano) {
-        for (let i = 0; i < notes.length; i++) {
-            piano.play(notes[i].midi, ac.currentTime + notes[i].start, {duration: notes[i].duration });
+class Player {
+    constructor() {
+        this.ac = new AudioContext();
+        this.piano = undefined;
+    }
+
+    async init() {
+        this.piano = await Soundfont.instrument(
+            this.ac,
+            "acoustic_grand_piano"
+        );
+    }
+
+    async play(notes) {
+        if (!this.piano) {
+            this.init();
         }
-    });
+
+        for (const note of notes) {
+            this.piano.play(note.midi, this.ac.currentTime + note.start, {
+                duration: note.duration,
+            });
+        }
+    }
 }
+
