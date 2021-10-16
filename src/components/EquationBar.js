@@ -6,7 +6,12 @@ import newIcon from "../assets/add.png";
 import updateIcon from "../assets/update.png";
 
 function EquationBar({ handleSubmit }) {
-    const { control, register, handleSubmit: wrapSubmit } = useForm();
+    const {
+        control,
+        register,
+        handleSubmit: wrapSubmit,
+        formState: { errors },
+    } = useForm();
     const { fields, append, remove } = useFieldArray({
         control,
         name: "equations",
@@ -14,12 +19,27 @@ function EquationBar({ handleSubmit }) {
 
     const items = fields.map((eq, idx) => {
         const num = idx + 1;
+        const name = `equations.${idx}`;
+
         return (
             <EquationBox
                 key={num}
                 label={num}
-                name={`equations.${idx}.str`}
-                register={register}
+                registerEqu={() =>
+                    register(`${name}.str`, {
+                        required: "A valid equation is required!",
+                    })
+                }
+                registerStep={() =>
+                    register(`${name}.step`, {
+                        required: true,
+                        validate: (value) =>
+                            value > 0 ? false : "Step must be greater than 0",
+                    })
+                }
+                registerDuration={() =>
+                    register(`${name}.duration`, { required: true })
+                }
                 remove={() => remove(idx)}
             />
         );
