@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import EquationBar from "./components/EquationBar";
 import Sheet from "./components/Sheet";
 import "./App.css";
+import generateSheet from "./internal/abc";
 
 function App() {
     const handleSubmit = ({ equations }) => {

@@ -1,4 +1,5 @@
 import { Fn } from "./math";
+import { toMidiSimple } from './notemap';
 
 class IR {
     constructor(fn, start, end, step) {
@@ -7,33 +8,29 @@ class IR {
         this.end = end;
         this.step = step;
     }
-
-    abc() {
+    
+    // generates sheet music from 
+    abc(bpm, n16, values) {
         const values = this.values();
         const notes = values.map(([t, v]) => );
         return `K:C
 ${notes}`;
     }
 
+    // generates whole sequence of notes from start to end with duration step
     soundfont() {
-        const values = this.values();
+        const values = this.values(this.start, this.end, this.step);
         const notes = values.map(([t, v]) => this.note(t, v, this.step));
         return notes;
     }
 
     values() {
         const r = [...range(this.start, this.end, this.step)];
-        return r.map((t) => this.fn.eval(t));
+        return r.map((t) => [t, this.fn.eval(t)]);
     }
 
-    // NOTE the midi scale goes from 21 to 108
     note(t, v, duration) {
-        const LOW_MIDI = 36;
-        const HIGH_MIDI = 84;
-
-        const range = HIGH_MIDI - LOW_MIDI + 1;
-        const midi = (Math.round(v) % range) + LOW_MIDI;
-
+        const midi = toMidiSimple(v);
         return { midi: midi, start: t, duration: duration };
     }
 }
