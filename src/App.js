@@ -3,6 +3,7 @@ import { AppBar, Box, Grid, Toolbar, Typography } from "@material-ui/core";
 
 //import EquationsPanel from "./EquationsPanel";
 import Sidebar from "./components/Sidebar";
+import Sheet from './components/Sheet';
 import "./App.css";
 
 function App() {
@@ -21,7 +22,9 @@ function App() {
                 <div className="w-1/3 border-r-2 p-2">
                     <Sidebar />
                 </div>
-                <div className="w-2/3 p-2">right side</div>
+                <div className="w-2/3 p-2">
+                    <Sheet />
+                </div>
             </div>
         </div>
     );
