@@ -42,6 +42,7 @@ function EquationBar({ handleSubmit }) {
                     start: "2pi",
                     end: "4pi",
                     step: "pi/2",
+                    startBeat: 16,
                     duration: 8,
                 },
                 {
@@ -49,6 +50,7 @@ function EquationBar({ handleSubmit }) {
                     start: "2pi",
                     end: "4pi",
                     step: "pi",
+                    startBeat: 16,
                     duration: 8,
                 },
             ],
@@ -96,6 +98,12 @@ function EquationBar({ handleSubmit }) {
                         validate: (val) =>
                             new Expr(val).eval() > 0 ||
                             "Step must be greater than 0",
+                    })
+                }
+                registerStartBeat={() =>
+                    register(`${name}.startBeat`, {
+                        required: true,
+                        setValueAs: (val) => parseInt(val),
                     })
                 }
                 registerDuration={() =>

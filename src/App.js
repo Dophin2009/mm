@@ -10,11 +10,12 @@ function App() {
     const handleSubmit = async ({ equations }) => {
         const mfs = equations.map((eq) => ({
             mf: new MathFunction(eq.str, eq.start, eq.end, eq.step),
+            startBeat: eq.startBeat,
             duration: eq.duration,
         }));
-        const notes = mfs.flatMap(({ mf, duration }) => {
+        const notes = mfs.flatMap(({ mf, startBeat, duration }) => {
             console.log(mf);
-            const notes = mf.notes(duration);
+            const notes = mf.notes(startBeat, duration);
             console.log(notes);
             return notes;
         });

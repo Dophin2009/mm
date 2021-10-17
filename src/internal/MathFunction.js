@@ -20,10 +20,10 @@ class MathFunction {
     // abc(bpm, n16, values) {}
 
     // Generates whole sequence of notes from start to end with duration step.
-    notes(duration) {
+    notes(start, duration) {
         const values = this.values();
         return values.map(([, v], i) =>
-            this.valToNote(v, i * duration, duration)
+            this.valToNote(v, start + i * duration, duration)
         );
     }
 

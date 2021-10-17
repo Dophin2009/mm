@@ -8,6 +8,7 @@ function EquationBox({
     registerStart,
     registerEnd,
     registerStep,
+    registerStartBeat,
     registerDuration,
     remove,
 }) {
@@ -38,34 +39,44 @@ function EquationBox({
                 </div>
             </div>
             <div className="w-full flex flex-row">
-                <div className="text-lg font-bold flex flex-start">
+                <div className="text-lg font-bold flex flex-start w-1/5">
                     S:
                     <input
-                        className="h-7 bottom-0 w-16 mx-2 focus:outline-none"
+                        className="h-7 bottom-0 ml-1 focus:outline-none"
                         defaultValue="1"
                         {...registerStart()}
                     />
                 </div>
-                <div className="text-lg font-bold flex flex-start">
+                <div className="text-lg font-bold flex flex-start w-1/5">
                     E:
                     <input
-                        className="h-7 bottom-0 w-16 mx-2 focus:outline-none"
+                        className="h-7 bottom-0 ml-1 focus:outline-none"
                         defaultValue="10"
                         {...registerEnd()}
                     />
                 </div>
-                <div className="text-lg font-bold flex flex-start">
+                <div className="text-lg font-bold flex flex-start w-1/5">
                     ST:
                     <input
-                        className="h-7 bottom-0 w-16 mx-2 focus:outline-none"
+                        className="h-7 bottom-0 ml-1 focus:outline-none"
                         defaultValue="1"
                         {...registerStep()}
                     />
                 </div>
-                <div className="text-lg font-bold flex flex-row justify-end gap-2">
+            </div>
+            <div className="w-full flex flex-row">
+                <div className="text-lg font-bold flex flex-start w-1/5">
+                    SB:
+                    <input
+                        className="h-7 bottom-0 ml-1 focus:outline-none"
+                        defaultValue="0"
+                        {...registerStartBeat()}
+                    />
+                </div>
+                <div className="text-lg font-bold flex flex-row justify-end gap-2 w-1/5">
                     D:
                     <select
-                        className="h-7 bottom-0 w-16 mx-2 focus:outline-none"
+                        className="h-7 bottom-0 ml-1 focus:outline-none"
                         defaultValue="2"
                         {...registerDuration()}
                     >
