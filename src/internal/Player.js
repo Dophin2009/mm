@@ -4,6 +4,8 @@ class Player {
     constructor() {
         this.ac = new AudioContext();
         this.piano = undefined;
+
+        this.nodes = [];
     }
 
     async init() {
@@ -21,16 +23,24 @@ class Player {
             await this.init();
         }
 
+        await this.stop();
+
         const sDuration = 15 / bpm;
         const currentTime = this.ac.currentTime;
         for (const { midi, start, duration } of notes) {
             const startTime = currentTime + delay + start * sDuration;
             const durationTime = duration * sDuration;
 
-            this.piano.play(midi, startTime, {
+            const node = this.piano.start(midi, startTime, {
                 duration: durationTime,
             });
+            this.nodes.push(node);
         }
+    }
+
+    async stop() {
+        this.piano.stop();
+        this.nodes = [];
     }
 }
 
