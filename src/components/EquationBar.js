@@ -303,6 +303,7 @@ function EquationBar({ handleSubmit }) {
                         setValueAs: (val) => parseInt(val),
                     })
                 }
+                registerWhiteOnly={() => register(`${name}.whiteonly`)}
                 remove={() => remove(idx)}
             />
         );

@@ -74,7 +74,6 @@ export function generateSheet(title, bpm, notes) {
     }
     data += cur + "|\n";
 
-    console.log(data);
     return data;
 }
 
