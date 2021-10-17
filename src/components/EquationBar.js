@@ -155,6 +155,15 @@ function EquationBar({ handleSubmit }) {
                     whiteonly: true,
                 },
                 {
+                    str: "-3 + sin(t * pi/2)",
+                    start: "0",
+                    end: "32",
+                    step: "1",
+                    duration: 8,
+                    startBeat: 0,
+                    whiteonly: true,
+                },
+                {
                     str: "(t^2 + t)%8",
                     start: "0",
                     end: "32",
