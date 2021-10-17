@@ -30,7 +30,7 @@ export function generateSheet(notes) {
     "M:4/4\n" +
     "L:1/4\n" +
     "Q:1/4=90\n" +
-    "K:G\n";
+    "K:C\n";
 
     let midiMap = new Map();
     for (const note of notes) {
@@ -104,7 +104,28 @@ export function generateTestSheet2() {
         { midi: 84, start: 17, duration: 1 },
         { midi: 79, start: 18, duration: 1 },
         { midi: 76, start: 19, duration: 1 },
-        { midi: 72, start: 20, duration: 1 },
+        { midi: 72, start: 30, duration: 1 },
+        { midi: 60, start: 27, duration: 1 },
+        { midi: 84, start: 27, duration: 1 },
+        { midi: 79, start: 28, duration: 1 },
+        { midi: 76, start: 29, duration: 1 },
+        { midi: 72, start: 40, duration: 1 },
+        { midi: 60, start: 37, duration: 1 },
+        { midi: 84, start: 37, duration: 1 },
+        { midi: 79, start: 38, duration: 1 },
+        { midi: 76, start: 39, duration: 1 },
+        { midi: 72, start: 40, duration: 1 },
+        { midi: 60, start: 47, duration: 1 },
+        { midi: 84, start: 47, duration: 1 },
+        { midi: 79, start: 48, duration: 1 },
+        { midi: 76, start: 49, duration: 1 },
+        { midi: 72, start: 50, duration: 1 },
+
+        { midi: 60, start: 61, duration: 1 },
+        { midi: 84, start: 67, duration: 1 },
+        { midi: 79, start: 78, duration: 1 },
+        { midi: 76, start: 89, duration: 1 },
+        { midi: 72, start: 100, duration: 1 },
     ];
 
     //console.log(durationToLength);
@@ -113,7 +134,7 @@ export function generateTestSheet2() {
 
 let visualObj = null;
 export function renderSheet() {
-    visualObj = abcjs.renderAbc("paper", generateTestSheet3());
+    visualObj = abcjs.renderAbc("paper", generateTestSheet2());
 }
 
 export function testAudio() {
@@ -127,7 +148,6 @@ export function testAudio() {
     //sequencer.appendNote({ trackNumber: 0, pitch: 60, durationInMeasures: 1, volume: 80 });
 
 
-
     synth.init({
         audioContext: myContext,
         visualObj: visualObj[0],
@@ -139,7 +159,7 @@ export function testAudio() {
         //     programOffsets: 1000,
         // }
     }).then(function (results) {
-        synth.prime
+        
     }).then(() => {
         synth.prime(() => {
             console.log('in the prime');
