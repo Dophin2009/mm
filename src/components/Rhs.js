@@ -9,7 +9,7 @@ function Rhs({ notes }) {
 
     const [playing, setPlaying] = useState(notes.len === 0);
     const [bpm, setBpm] = useState(160);
-    const [title, setTitle] = useState("Untitled Masterpiece");
+    const [title, setTitle] = useState("");
 
     const playAudio = async () => {
         setPlaying(true);
