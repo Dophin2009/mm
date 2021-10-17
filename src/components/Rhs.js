@@ -59,7 +59,7 @@ function BpmSlider({ handleChange }) {
             BPM:
             <input
                 type="number"
-                className="h-7 bottom-0 w-10 mx-2 focus:outline-none"
+                className="h-7 bottom-0 w-12 mx-2 focus:outline-none"
                 min={1}
                 max={300}
                 defaultValue={160}
@@ -77,7 +77,7 @@ function TitleField({ handleChange }) {
             Title:
             <input
                 placeholder="..."
-                className="h-7 bottom-0 w-10 mx-2 focus:outline-none"
+                className="h-7 bottom-0 w-40 mx-2 focus:outline-none"
                 onChange={(event) => onChange(event)}
             />
         </div>

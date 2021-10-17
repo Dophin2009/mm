@@ -80,7 +80,10 @@ function EquationBar({ handleSubmit }) {
                     })
                 }
                 registerDuration={() =>
-                    register(`${name}.duration`, { required: true })
+                    register(`${name}.duration`, {
+                        required: true,
+                        setValueAs: (val) => parseInt(val),
+                    })
                 }
                 remove={() => remove(idx)}
             />
