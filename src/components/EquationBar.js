@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 
+import Expr from "../internal/Expr";
 import EquationBox from "./EquationBox";
 import newIcon from "../assets/add.png";
 import updateIcon from "../assets/update.png";
@@ -17,10 +18,17 @@ function EquationBar({ handleSubmit }) {
             equations: [
                 {
                     str: "30sin(t)",
-                    start: 0,
-                    end: 6.28,
-                    step: 0.09,
-                    duration: 1,
+                    start: "0",
+                    end: "2pi",
+                    step: "pi/24",
+                    duration: "1",
+                },
+                {
+                    str: "30cos(t)",
+                    start: "0",
+                    end: "2pi",
+                    step: "pi/24",
+                    duration: "1",
                 },
             ],
         },
@@ -46,16 +54,18 @@ function EquationBar({ handleSubmit }) {
                 registerStart={() =>
                     register(`${name}.start`, {
                         required: "Start is required!",
+                        setValueAs: (val) => new Expr(val),
                     })
                 }
                 registerEnd={() =>
                     register(`${name}.end`, {
                         required: "End is required!",
-                        validate: (value) => {
+                        setValueAs: (val) => new Expr(val),
+                        validate: (val) => {
                             const { equations } = getValues();
-                            const start = equations[idx].start;
+                            const start = equations[idx].start.eval();
                             return (
-                                value > start ||
+                                val.eval() > start ||
                                 "End must be greater than start!"
                             );
                         },
@@ -64,8 +74,9 @@ function EquationBar({ handleSubmit }) {
                 registerStep={() =>
                     register(`${name}.step`, {
                         required: "Step is required!",
-                        validate: (value) =>
-                            value > 0 || "Step must be greater than 0",
+                        setValueAs: (val) => new Expr(val),
+                        validate: (val) =>
+                            val.eval() > 0 || "Step must be greater than 0",
                     })
                 }
                 registerDuration={() =>

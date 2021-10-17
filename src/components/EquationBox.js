@@ -41,40 +41,31 @@ function EquationBox({
                 <div className="text-lg font-bold flex flex-start">
                     S:
                     <input
-                        type="number"
-                        step="0.001"
-                        className="h-7 bottom-0 w-10 mx-2 focus:outline-none"
-                        min={0}
-                        defaultValue={1}
+                        className="h-7 bottom-0 w-16 mx-2 focus:outline-none"
+                        defaultValue="1"
                         {...registerStart()}
                     />
                 </div>
                 <div className="text-lg font-bold flex flex-start">
                     E:
                     <input
-                        type="number"
-                        step="0.001"
-                        className="h-7 bottom-0 w-10 mx-2 focus:outline-none"
-                        min={0}
-                        defaultValue={10}
+                        className="h-7 bottom-0 w-16 mx-2 focus:outline-none"
+                        defaultValue="10"
                         {...registerEnd()}
                     />
                 </div>
                 <div className="text-lg font-bold flex flex-start">
                     ST:
                     <input
-                        type="number"
-                        step="0.001"
-                        className="h-7 bottom-0 w-10 mx-2 focus:outline-none"
-                        min={0}
-                        defaultValue={1}
+                        className="h-7 bottom-0 w-16 mx-2 focus:outline-none"
+                        defaultValue="1"
                         {...registerStep()}
                     />
                 </div>
                 <div className="text-lg font-bold flex flex-row justify-end gap-2">
                     D:
                     <select
-                        className="h-7 bottom-0 w-10 mx-2 focus:outline-none"
+                        className="h-7 bottom-0 w-16 mx-2 focus:outline-none"
                         defaultValue="2"
                         {...registerDuration()}
                     >
