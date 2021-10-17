@@ -14,7 +14,6 @@ function App() {
             duration: eq.duration,
             whiteonly: eq.whiteonly || eq.whiteonly === "false",
         }));
-        console.log(mfs);
         const notes = mfs.flatMap(({ mf, startBeat, duration, whiteonly }) => {
             const notes = mf.notes(startBeat, duration, whiteonly);
             return notes;
