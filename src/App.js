@@ -4,7 +4,6 @@ import MathFunction from "./internal/MathFunction";
 import EquationBar from "./components/EquationBar";
 import Rhs from "./components/Rhs";
 import "./App.css";
-import SheetEditor from './components/SheetEditor';
 
 function App() {
     const [notes, setNotes] = useState([]);
@@ -33,8 +32,6 @@ function App() {
                     <EquationBar handleSubmit={(data) => handleSubmit(data)} />
                 </div>
                 <div className="w-2/3 p-2">
-                    <SheetEditor />
-                    {/* <Rhs key={equations} equations={equations} /> */}
                     <Rhs notes={notes} />
                 </div>
             </div>

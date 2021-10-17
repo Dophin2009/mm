@@ -11,7 +11,7 @@ class Player {
             this.ac,
             "acoustic_grand_piano",
             {
-                soundfont: "MusyungKite",
+                soundfont: "SalC5Light2",
             }
         );
     }

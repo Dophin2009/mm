@@ -9,6 +9,7 @@ function Rhs({ notes }) {
 
     const [playing, setPlaying] = useState(notes.len === 0);
     const [bpm, setBpm] = useState(160);
+    const [title, setTitle] = useState("Untitled Masterpiece");
 
     const playAudio = async () => {
         setPlaying(true);
@@ -17,10 +18,16 @@ function Rhs({ notes }) {
     };
 
     return (
-        <div className="relative w-full flex flex-row">
-            <PlayButton handleClick={() => playAudio()} />
-            <BpmSlider handleChange={(val) => setBpm(val)} />
-        </div>
+        <>
+            <div className="relative w-full flex flex-row">
+                <PlayButton handleClick={() => playAudio()} />
+                <BpmSlider handleChange={(val) => setBpm(val)} />
+                <TitleField handleChange={(val) => setTitle(val)} />
+            </div>
+            <div className="relative w-full flex flex-row">
+                <Sheet title={title} notes={notes} />
+            </div>
+        </>
     );
 }
 
@@ -56,6 +63,21 @@ function BpmSlider({ handleChange }) {
                 min={1}
                 max={300}
                 defaultValue={160}
+                onChange={(event) => onChange(event)}
+            />
+        </div>
+    );
+}
+
+function TitleField({ handleChange }) {
+    const onChange = (event) => handleChange(event.target.value);
+
+    return (
+        <div className="text-lg font-bold flex flex-start">
+            Title:
+            <input
+                placeholder="..."
+                className="h-7 bottom-0 w-10 mx-2 focus:outline-none"
                 onChange={(event) => onChange(event)}
             />
         </div>
