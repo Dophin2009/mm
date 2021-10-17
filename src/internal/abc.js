@@ -70,12 +70,12 @@ export function generateTestSheet() {
 }
 
 export function generateTestSheet3() {
-    return `X: 1
-    T: Cooley's
-    M: 4/4
-    L: 1/8
-    K: Emin
-    |:D2|"Em"EBBA B2 EB|\
+    return "X: 1\n" + 
+    "T: Cooley's\n" + 
+    "M: 4/4\n" + 
+    "L: 1/8\n" + 
+    "K: Emin\n" + 
+    `|:D2|"Em"EBBA B2 EB|\
         ~B2 AB dBAG|\
         "D"FDAD BDAD|\
         FDAD dAFD|
@@ -120,10 +120,24 @@ export function testAudio() {
     var myContext = new AudioContext();
     var synth = new abcjs.synth.CreateSynth();
 
+    //var synthControl = new abcjs.synth.SynthController();
+	//var sequencer = ABCJS.synth.SynthSequence();
+    //sequencer.addTrack();
+    //sequencer.setInstrument(0, 25);
+    //sequencer.appendNote({ trackNumber: 0, pitch: 60, durationInMeasures: 1, volume: 80 });
+
+
+
     synth.init({
         audioContext: myContext,
         visualObj: visualObj[0],
-        millisecondsPerMeasure: 1500,
+        millisecondsPerMeasure: 2000,
+        
+        // options: {
+        //     soundFontUrl: '../assets/SalC5Light2.sf2',
+        //     soundFontUrl: 32,
+        //     programOffsets: 1000,
+        // }
     }).then(function (results) {
         synth.prime
     }).then(() => {

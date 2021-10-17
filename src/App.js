@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import EquationBar from "./components/EquationBar";
 import Rhs from "./components/Rhs";
 import "./App.css";
+import SheetEditor from './components/SheetEditor';
 
 function App() {
     const [equations, setEquations] = useState([]);
@@ -22,7 +23,8 @@ function App() {
                     <EquationBar handleSubmit={(data) => handleSubmit(data)} />
                 </div>
                 <div className="w-2/3 p-2">
-                    <Rhs key={equations} equations={equations} />
+                    <SheetEditor />
+                    {/* <Rhs key={equations} equations={equations} /> */}
                 </div>
             </div>
         </div>
