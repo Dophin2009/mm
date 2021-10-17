@@ -1,13 +1,14 @@
 import { toMidiSimple } from "./notemap";
 import Fn from "./Fn";
+import Expr from "./Expr";
 
 class MathFunction {
     constructor(fn, start, end, step) {
         this.str = fn;
         this.fn = new Fn(fn);
-        this.start = start.eval();
-        this.end = end.eval();
-        this.step = step.eval();
+        this.start = new Expr(start).eval();
+        this.end = new Expr(end).eval();
+        this.step = new Expr(step).eval();
     }
 
     values() {

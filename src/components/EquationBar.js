@@ -17,18 +17,39 @@ function EquationBar({ handleSubmit }) {
         defaultValues: {
             equations: [
                 {
-                    str: "30sin(t)",
+                    str: "-7sin(t)",
                     start: "0",
                     end: "2pi",
-                    step: "pi/24",
-                    duration: "1",
+                    step: "pi/2",
+                    duration: 4,
                 },
                 {
-                    str: "30cos(t)",
+                    str: "4 - 7sin(t)",
                     start: "0",
                     end: "2pi",
-                    step: "pi/24",
-                    duration: "1",
+                    step: "pi/2",
+                    duration: 4,
+                },
+                {
+                    str: "11 - 7sin(t)",
+                    start: "0",
+                    end: "2pi",
+                    step: "pi/2",
+                    duration: 4,
+                },
+                {
+                    str: "-5",
+                    start: "2pi",
+                    end: "4pi",
+                    step: "pi/2",
+                    duration: 8,
+                },
+                {
+                    str: "1 + cos(t)",
+                    start: "2pi",
+                    end: "4pi",
+                    step: "pi",
+                    duration: 8,
                 },
             ],
         },
@@ -54,18 +75,16 @@ function EquationBar({ handleSubmit }) {
                 registerStart={() =>
                     register(`${name}.start`, {
                         required: "Start is required!",
-                        setValueAs: (val) => new Expr(val),
                     })
                 }
                 registerEnd={() =>
                     register(`${name}.end`, {
                         required: "End is required!",
-                        setValueAs: (val) => new Expr(val),
                         validate: (val) => {
                             const { equations } = getValues();
-                            const start = equations[idx].start.eval();
+                            const start = equations[idx].start;
                             return (
-                                val.eval() > start ||
+                                new Expr(val).eval() > new Expr(start).eval() ||
                                 "End must be greater than start!"
                             );
                         },
@@ -74,9 +93,9 @@ function EquationBar({ handleSubmit }) {
                 registerStep={() =>
                     register(`${name}.step`, {
                         required: "Step is required!",
-                        setValueAs: (val) => new Expr(val),
                         validate: (val) =>
-                            val.eval() > 0 || "Step must be greater than 0",
+                            new Expr(val).eval() > 0 ||
+                            "Step must be greater than 0",
                     })
                 }
                 registerDuration={() =>
