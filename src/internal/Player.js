@@ -9,7 +9,10 @@ class Player {
     async init() {
         this.piano = await Soundfont.instrument(
             this.ac,
-            "acoustic_grand_piano"
+            "acoustic_grand_piano",
+            {
+                soundfont: "MusyungKite",
+            }
         );
     }
 

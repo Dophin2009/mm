@@ -7,12 +7,17 @@ import "./App.css";
 
 function App() {
     const [notes, setNotes] = useState([]);
-    const handleSubmit = ({ equations }) => {
+    const handleSubmit = async ({ equations }) => {
         const mfs = equations.map((eq) => ({
             mf: new MathFunction(eq.str, eq.start, eq.end, eq.step),
             duration: eq.duration,
         }));
-        const notes = mfs.flatMap(({ mf, duration }) => mf.notes(duration));
+        const notes = mfs.flatMap(({ mf, duration }) => {
+            console.log(mf);
+            const notes = mf.notes(duration);
+            console.log(notes);
+            return notes;
+        });
         setNotes(notes);
     };
 

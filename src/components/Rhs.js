@@ -8,7 +8,7 @@ function Rhs({ notes }) {
     const player = new Player();
 
     const [playing, setPlaying] = useState(notes.len === 0);
-    const [bpm, setBpm] = useState(100);
+    const [bpm, setBpm] = useState(160);
 
     const playAudio = async () => {
         setPlaying(true);
@@ -55,7 +55,7 @@ function BpmSlider({ handleChange }) {
                 className="h-7 bottom-0 w-10 mx-2 focus:outline-none"
                 min={1}
                 max={300}
-                defaultValue={60}
+                defaultValue={160}
                 onChange={(event) => onChange(event)}
             />
         </div>

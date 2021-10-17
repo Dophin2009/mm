@@ -5,9 +5,9 @@ class MathFunction {
     constructor(fn, start, end, step) {
         this.str = fn;
         this.fn = new Fn(fn);
-        this.start = start;
-        this.end = end;
-        this.step = step;
+        this.start = start.eval();
+        this.end = end.eval();
+        this.step = step.eval();
     }
 
     values() {
@@ -20,7 +20,7 @@ class MathFunction {
 
     // Generates whole sequence of notes from start to end with duration step.
     notes(duration) {
-        const values = this.values(this.start, this.end, this.step);
+        const values = this.values();
         return values.map(([, v], i) =>
             this.valToNote(v, i * duration, duration)
         );
@@ -39,6 +39,7 @@ function Note(midi, start, duration) {
 function range(start, stop, step = 1) {
     let r = [];
     for (let i = start; i < stop; i += step) {
+        console.log(i);
         r.push(i);
     }
     return r;
