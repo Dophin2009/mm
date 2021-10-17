@@ -11,16 +11,26 @@ function EquationBar({ handleSubmit }) {
         control,
         register,
         handleSubmit: wrapSubmit,
+        setValue,
         getValues,
         formState: { errors },
     } = useForm({
-        defaultValues: {
+        defaultValues: {},
+    });
+    const { fields, append, remove } = useFieldArray({
+        control,
+        name: "equations",
+    });
+
+    const demos = [
+        {
+            name: "I",
             equations: [
                 {
                     str: "0",
                     start: "0",
                     end: "32",
-                    step: '1',
+                    step: "1",
                     duration: 8,
                     whiteonly: true,
                 },
@@ -28,7 +38,7 @@ function EquationBar({ handleSubmit }) {
                     str: "2 + t%2",
                     start: "0",
                     end: "32",
-                    step: '1',
+                    step: "1",
                     duration: 8,
                     whiteonly: true,
                 },
@@ -36,7 +46,7 @@ function EquationBar({ handleSubmit }) {
                     str: "-3",
                     start: "0",
                     end: "32",
-                    step: '1',
+                    step: "1",
                     duration: 8,
                     whiteonly: true,
                 },
@@ -44,7 +54,7 @@ function EquationBar({ handleSubmit }) {
                     str: "(2*t)%8",
                     start: "0",
                     end: "16",
-                    step: '1',
+                    step: "1",
                     duration: 2,
                     startBeat: 32,
                     whiteonly: true,
@@ -53,7 +63,7 @@ function EquationBar({ handleSubmit }) {
                     str: "t^2 %8",
                     start: "0",
                     end: "32",
-                    step: '1',
+                    step: "1",
                     duration: 1,
                     startBeat: 64,
                     whiteonly: true,
@@ -62,7 +72,7 @@ function EquationBar({ handleSubmit }) {
                     str: "t^3 %8",
                     start: "0",
                     end: "32",
-                    step: '1',
+                    step: "1",
                     duration: 1,
                     startBeat: 96,
                     whiteonly: true,
@@ -71,7 +81,7 @@ function EquationBar({ handleSubmit }) {
                     str: "(t^2 + 1) %8",
                     start: "0",
                     end: "32",
-                    step: '1',
+                    step: "1",
                     duration: 1,
                     startBeat: 128,
                     whiteonly: true,
@@ -80,7 +90,7 @@ function EquationBar({ handleSubmit }) {
                     str: "(t^3 + 1) %8",
                     start: "0",
                     end: "32",
-                    step: '1',
+                    step: "1",
                     duration: 1,
                     startBeat: 160,
                     whiteonly: true,
@@ -89,7 +99,7 @@ function EquationBar({ handleSubmit }) {
                     str: "(t^5) %8",
                     start: "0",
                     end: "32",
-                    step: '1',
+                    step: "1",
                     duration: 1,
                     startBeat: 192,
                     whiteonly: true,
@@ -98,7 +108,7 @@ function EquationBar({ handleSubmit }) {
                     str: "(t^5 + 1) %8",
                     start: "0",
                     end: "32",
-                    step: '1',
+                    step: "1",
                     duration: 1,
                     startBeat: 224,
                     whiteonly: true,
@@ -107,7 +117,7 @@ function EquationBar({ handleSubmit }) {
                     str: "t^2 %8",
                     start: "0",
                     end: "32",
-                    step: '1',
+                    step: "1",
                     duration: 1,
                     startBeat: 256,
                     whiteonly: true,
@@ -116,57 +126,14 @@ function EquationBar({ handleSubmit }) {
                     str: "t^3 %8",
                     start: "0",
                     end: "32",
-                    step: '1',
+                    step: "1",
                     duration: 1,
                     startBeat: 256,
                     whiteonly: true,
                 },
             ],
-            // equations: [
-            //     {
-            //         str: "-7sin(t)",
-            //         start: "0",
-            //         end: "2pi",
-            //         step: "pi/2",
-            //         duration: 4,
-            //     },
-            //     {
-            //         str: "4 - 7sin(t)",
-            //         start: "0",
-            //         end: "2pi",
-            //         step: "pi/2",
-            //         duration: 4,
-            //     },
-            //     {
-            //         str: "11 - 7sin(t)",
-            //         start: "0",
-            //         end: "2pi",
-            //         step: "pi/2",
-            //         duration: 4,
-            //     },
-            //     {
-            //         str: "-5",
-            //         start: "2pi",
-            //         end: "4pi",
-            //         step: "pi/2",
-            //         startBeat: 16,
-            //         duration: 8,
-            //     },
-            //     {
-            //         str: "1 + cos(t)",
-            //         start: "2pi",
-            //         end: "4pi",
-            //         step: "pi",
-            //         startBeat: 16,
-            //         duration: 8,
-            //     },
-            //],
         },
-    });
-    const { fields, append, remove } = useFieldArray({
-        control,
-        name: "equations",
-    });
+    ];
 
     const items = fields.map((eq, idx) => {
         const num = idx + 1;
@@ -233,6 +200,7 @@ function EquationBar({ handleSubmit }) {
                         Equations
                     </div>
                     <div className="w-1/2 flex flex-row justify-end gap-2">
+                        <DemoButtons demos={demos} setValue={setValue} />
                         <button
                             type="button"
                             onClick={() => append({ str: "" })}
@@ -258,6 +226,26 @@ function EquationBar({ handleSubmit }) {
             </form>
         </div>
     );
+}
+
+function DemoButtons({ demos, setValue }) {
+    const buttons = demos.map(({ name, equations }, i) => {
+        const useDemo = () => {
+            setValue("equations", equations);
+        };
+
+        return (
+            <button
+                key={i}
+                type="button"
+                className="text-xs bg-gray-200 text-black-500 opacity-60 hover:opacity-100 px-2 py-2 rounded-md"
+                onClick={() => useDemo()}
+            >
+                D-{name}
+            </button>
+        );
+    });
+    return <>{buttons}</>;
 }
 
 export default EquationBar;
