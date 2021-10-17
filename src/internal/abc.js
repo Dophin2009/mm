@@ -36,9 +36,17 @@ function midiToLetter(midi, duration) {
     return getLetter[midi - 60] + add + durationToLength.get(duration);
 }
 
-export function generateSheet(title, notes) {
+export function generateSheet(title, bpm, notes) {
     let data =
-        "T: " + title + "\n" + "M:4/4\n" + "L:1/4\n" + "Q:1/4=90\n" + "K:C\n";
+        "T: " +
+        title +
+        "\n" +
+        "M:4/4\n" +
+        "L:1/4\n" +
+        "Q:1/4=" +
+        bpm +
+        "\n" +
+        "K:C\n";
 
     let midiMap = new Map();
     let has16 = false;
@@ -54,7 +62,7 @@ export function generateSheet(title, notes) {
     keys.sort((a, b) => a - b);
     let li = 0;
     let cur = "";
-    const mlen = (has16===true) ? 32 : 64;
+    const mlen = has16 === true ? 32 : 64;
     for (const key of keys) {
         if (key >= li + 16) {
             data += cur + " | ";
@@ -70,7 +78,6 @@ export function generateSheet(title, notes) {
     return data;
 }
 
-export function renderSheet(id, title, notes) {
-    abcjs.renderAbc(id, generateSheet(title, notes));
+export function renderSheet(id, title, bpm, notes) {
+    abcjs.renderAbc(id, generateSheet(title, bpm, notes));
 }
-

@@ -8,7 +8,7 @@ function Rhs({ notes }) {
     const player = new Player();
 
     const [playing, setPlaying] = useState(notes.len === 0);
-    const [bpm, setBpm] = useState(160);
+    const [bpm, setBpm] = useState(100);
     const [title, setTitle] = useState("");
 
     const playAudio = async () => {
@@ -25,7 +25,7 @@ function Rhs({ notes }) {
                 <TitleField handleChange={(val) => setTitle(val)} />
             </div>
             <div className="relative w-full flex flex-row">
-                <Sheet title={title} notes={notes} />
+                <Sheet title={title} bpm={bpm} notes={notes} />
             </div>
         </>
     );
@@ -62,7 +62,7 @@ function BpmSlider({ handleChange }) {
                 className="h-7 bottom-0 w-12 mx-2 focus:outline-none"
                 min={1}
                 max={300}
-                defaultValue={160}
+                defaultValue={100}
                 onChange={(event) => onChange(event)}
             />
         </div>
