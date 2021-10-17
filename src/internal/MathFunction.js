@@ -39,7 +39,6 @@ function Note(midi, start, duration) {
 function range(start, stop, step = 1) {
     let r = [];
     for (let i = start; i < stop; i += step) {
-        console.log(i);
         r.push(i);
     }
     return r;

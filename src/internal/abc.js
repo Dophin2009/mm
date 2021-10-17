@@ -3,16 +3,16 @@ import abcjs from "abcjs";
 
 const getLetter = [
     "C",
-    "C#",
+    "^C",
     "D",
-    "D#",
+    "^D",
     "E",
     "F",
-    "F#",
+    "^F",
     "G",
-    "G#",
+    "^G",
     "A",
-    "A#",
+    "^A",
     "B",
 ];
 const durationToLength = new Map([
