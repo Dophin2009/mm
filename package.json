@@ -2,6 +2,7 @@
     "name": "mm",
     "version": "0.1.0",
     "private": true,
+    "homepage": "https://dophin2009.github.io/mm",
     "dependencies": {
         "@craco/craco": "^6.3.0",
         "@emotion/react": "^11.4.1",
