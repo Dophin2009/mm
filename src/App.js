@@ -12,11 +12,11 @@ function App() {
             mf: new MathFunction(eq.str, eq.start, eq.end, eq.step),
             startBeat: eq.startBeat,
             duration: eq.duration,
+            whiteonly: eq.whiteonly === "false",
         }));
-        const notes = mfs.flatMap(({ mf, startBeat, duration }) => {
-            console.log(mf);
-            const notes = mf.notes(startBeat, duration);
-            console.log(notes);
+        console.log(mfs);
+        const notes = mfs.flatMap(({ mf, startBeat, duration, whiteonly }) => {
+            const notes = mf.notes(startBeat, duration, whiteonly);
             return notes;
         });
         setNotes(notes);

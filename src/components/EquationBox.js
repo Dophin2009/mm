@@ -10,6 +10,7 @@ function EquationBox({
     registerStep,
     registerStartBeat,
     registerDuration,
+    registerWhiteOnly,
     remove,
 }) {
     return (
@@ -73,7 +74,7 @@ function EquationBox({
                         {...registerStartBeat()}
                     />
                 </div>
-                <div className="text-lg font-bold flex flex-row justify-end gap-2 w-1/5">
+                <div className="text-lg font-bold flex flex-start w-1/5">
                     D:
                     <select
                         className="h-7 bottom-0 ml-1 focus:outline-none"
@@ -86,6 +87,15 @@ function EquationBox({
                         <option value={8}>8</option>
                         <option value={16}>16</option>
                     </select>
+                </div>
+                <div className="text-lg font-bold flex flex-start w-1/5">
+                    WO:
+                    <input
+                        type="checkbox"
+                        className="h-7 bottom-0 ml-1 focus:outline-none"
+                        value={false}
+                        {...registerWhiteOnly()}
+                    />
                 </div>
             </div>
         </div>

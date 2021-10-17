@@ -20,15 +20,18 @@ class MathFunction {
     // abc(bpm, n16, values) {}
 
     // Generates whole sequence of notes from start to end with duration step.
-    notes(start, duration) {
+    notes(start, duration, whiteonly) {
         const values = this.values();
         return values.map(([, v], i) =>
-            this.valToNote(v, start + i * duration, duration)
+            this.valToNote(v, start + i * duration, duration, whiteonly)
         );
     }
 
-    valToNote(v, start, duration) {
-        const midi = toMidiWhiteKeys(v);//toMidiSimple(v);
+    valToNote(v, start, duration, whiteonly) {
+        let midi = toMidiSimple(v);
+        if (whiteonly) {
+            midi = toMidiWhiteKeys(v);
+        }
         return Note(midi, start, duration);
     }
 }
