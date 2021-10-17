@@ -18,8 +18,9 @@ function EquationBox({
                     f(t) =
                     <input
                         {...registerEqu()}
+                        placeholder="..."
                         label={label}
-                        className="border-gray-200 border-b-2 h-7 bottom-0 mx-2 w-52"
+                        className="h-7 bottom-0 mx-2 w-52 focus:outline-none"
                     />
                 </div>
                 <div className="w-1/4 flex flex-row justify-end gap-2">
@@ -41,7 +42,8 @@ function EquationBox({
                     S:
                     <input
                         type="number"
-                        className="border-gray-200 border-b-2 h-7 bottom-0 w-10 mx-2"
+                        step="0.001"
+                        className="h-7 bottom-0 w-10 mx-2 focus:outline-none"
                         min={0}
                         defaultValue={1}
                         {...registerStart()}
@@ -51,7 +53,8 @@ function EquationBox({
                     E:
                     <input
                         type="number"
-                        className="border-gray-200 border-b-2 h-7 bottom-0 w-10 mx-2"
+                        step="0.001"
+                        className="h-7 bottom-0 w-10 mx-2 focus:outline-none"
                         min={0}
                         defaultValue={10}
                         {...registerEnd()}
@@ -61,7 +64,8 @@ function EquationBox({
                     ST:
                     <input
                         type="number"
-                        className="border-gray-200 border-b-2 h-7 bottom-0 w-10 mx-2"
+                        step="0.001"
+                        className="h-7 bottom-0 w-10 mx-2 focus:outline-none"
                         min={0}
                         defaultValue={1}
                         {...registerStep()}
@@ -70,7 +74,7 @@ function EquationBox({
                 <div className="text-lg font-bold flex flex-row justify-end gap-2">
                     D:
                     <select
-                        className="border-gray-200 border-b-2 h-7 bottom-0 w-10 mx-2"
+                        className="h-7 bottom-0 w-10 mx-2 focus:outline-none"
                         defaultValue="2"
                         {...registerDuration()}
                     >

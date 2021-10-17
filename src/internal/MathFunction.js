@@ -37,9 +37,11 @@ function Note(midi, start, duration) {
 }
 
 function range(start, stop, step = 1) {
-    return Array(stop - start)
-        .fill(start)
-        .map((x, y) => x + y * step);
+    let r = [];
+    for (let i = start; i < stop; i += step) {
+        r.push(i);
+    }
+    return r;
 }
 
 export default MathFunction;

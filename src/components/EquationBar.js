@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 
 import EquationBox from "./EquationBox";
@@ -12,7 +12,19 @@ function EquationBar({ handleSubmit }) {
         handleSubmit: wrapSubmit,
         getValues,
         formState: { errors },
-    } = useForm();
+    } = useForm({
+        defaultValues: {
+            equations: [
+                {
+                    str: "30sin(t)",
+                    start: 0,
+                    end: 6.28,
+                    step: 0.09,
+                    duration: 1,
+                },
+            ],
+        },
+    });
     const { fields, append, remove } = useFieldArray({
         control,
         name: "equations",

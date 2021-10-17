@@ -2,49 +2,63 @@ import React, { useState } from "react";
 
 import playIcon from "../assets/play.png";
 import Sheet from "./Sheet";
-import MathFunction from "../internal/MathFunction";
 import Player from "../internal/Player";
 
-function Rhs({ equations }) {
-    console.log("Rerender: ", equations);
+function Rhs({ notes }) {
     const player = new Player();
 
-    const [playing, setPlaying] = useState(equations.len === 0);
-
-    const mfs = equations.map((eq) => ({
-        mf: new MathFunction(eq.str, eq.start, eq.end, eq.step),
-        duration: eq.duration,
-    }));
+    const [playing, setPlaying] = useState(notes.len === 0);
+    const [bpm, setBpm] = useState(100);
 
     const playAudio = async () => {
         setPlaying(true);
-        const notes = mfs.flatMap(({ mf, duration }) => mf.notes(duration));
-        await player.play(notes, 60, 0);
+        await player.play(notes, bpm, 1);
         setPlaying(false);
     };
 
     return (
-        <div className="relative w-full">
+        <div className="relative w-full flex flex-row">
             <PlayButton handleClick={() => playAudio()} />
+            <BpmSlider handleChange={(val) => setBpm(val)} />
         </div>
     );
 }
 
 function PlayButton({ disabled, handleClick }) {
     let className =
-        "bg-gray-200 text-black-500 font-bold opacity-60 hover:opacity-100 px-2 py-2 rounded-md absolute left-0 top-0";
+        "bg-gray-200 text-black-500 font-bold opacity-60 hover:opacity-100 px-2 py-2 rounded-md left-0 top-0";
     if (disabled) {
         className += " disabled:opacity-50";
     }
 
     return (
-        <button
-            className={className}
-            onClick={() => handleClick()}
-            disabled={disabled}
-        >
-            <img src={playIcon} alt="Update" className="w-4 h-4" />
-        </button>
+        <div className="text-lg font-bold flex flex-start mr-3">
+            <button
+                className={className}
+                onClick={() => handleClick()}
+                disabled={disabled}
+            >
+                <img src={playIcon} alt="Update" className="w-4 h-4" />
+            </button>
+        </div>
+    );
+}
+
+function BpmSlider({ handleChange }) {
+    const onChange = (event) => handleChange(event.target.value);
+
+    return (
+        <div className="text-lg font-bold flex flex-start">
+            BPM:
+            <input
+                type="number"
+                className="h-7 bottom-0 w-10 mx-2 focus:outline-none"
+                min={1}
+                max={300}
+                defaultValue={60}
+                onChange={(event) => onChange(event)}
+            />
+        </div>
     );
 }
 
