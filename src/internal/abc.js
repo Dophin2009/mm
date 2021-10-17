@@ -41,7 +41,9 @@ export function generateSheet(title, notes) {
         "T: " + title + "\n" + "M:4/4\n" + "L:1/4\n" + "Q:1/4=90\n" + "K:C\n";
 
     let midiMap = new Map();
+    let has16 = false;
     for (const note of notes) {
+        if (note.duration === 1) has16 = true;
         if (midiMap.get(note.start) === undefined) midiMap.set(note.start, "");
         midiMap.set(
             note.start,
@@ -52,16 +54,17 @@ export function generateSheet(title, notes) {
     keys.sort((a, b) => a - b);
     let li = 0;
     let cur = "";
+    const mlen = (has16===true) ? 32 : 64;
     for (const key of keys) {
         if (key >= li + 16) {
             data += cur + " | ";
             cur = "";
             li += 16;
-            if (li % 64 === 0) data += "\n";
+            if (li % mlen === 0) data += "\n";
         }
         cur += "[" + midiMap.get(key) + "] ";
     }
-    data += cur + "\n";
+    data += cur + "|\n";
 
     console.log(data);
     return data;
