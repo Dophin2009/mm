@@ -1,4 +1,4 @@
-import { toMidiSimple } from "./notemap";
+import { toMidiSimple, toMidiWhiteKeys } from "./notemap";
 import Fn from "./Fn";
 import Expr from "./Expr";
 
@@ -28,7 +28,7 @@ class MathFunction {
     }
 
     valToNote(v, start, duration) {
-        const midi = toMidiSimple(v);
+        const midi = toMidiWhiteKeys(v);//toMidiSimple(v);
         return Note(midi, start, duration);
     }
 }
